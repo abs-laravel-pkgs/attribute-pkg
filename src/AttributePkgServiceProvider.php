@@ -17,6 +17,7 @@ class AttributePkgServiceProvider extends ServiceProvider {
 		$this->loadViewsFrom(__DIR__ . '/views', 'basic');
 		$this->publishes([
 			__DIR__ . '/views' => base_path('resources/views/attribute-pkg'),
+			__DIR__ . '/public' => base_path('public'),
 		]);
 	}
 
@@ -26,7 +27,6 @@ class AttributePkgServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function boot() {
-		// $this->app->make('Abs\Basic\EntityController');
 		// $this->app->make('Abs\Basic\API\AuthController');
 	}
 }
