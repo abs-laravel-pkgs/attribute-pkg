@@ -6,13 +6,13 @@ app.config(['$routeProvider', function($routeProvider) {
         template: '<field-list></field-list>',
         title: 'Fields',
     }).
-    when('/attribute-pkg/field/add', {
+    when('/attribute-pkg/field/add/:category_id', {
         template: '<field-form></field-form>',
-        title: 'Add Tax Code',
+        title: 'Add Field',
     }).
-    when('/tax-pkg/tax-code/edit/:id', {
-        template: '<tax-code-form></tax-code-form>',
-        title: 'Edit Tax Code',
+    when('/attribute-pkg/field/edit/:category_id/:id', {
+        template: '<field-form></field-form>',
+        title: 'Edit Field',
     }).
 
     //FIELD GROUPS
@@ -20,12 +20,12 @@ app.config(['$routeProvider', function($routeProvider) {
         template: '<field-group-list></field-group-list>',
         title: 'Field Groups',
     }).
-    when('/tax-pkg/tax/add', {
-        template: '<tax-form></tax-form>',
-        title: 'Add Tax',
+    when('/attribute-pkg/field-group/add', {
+        template: '<field-group-form></field-group-form>',
+        title: 'Add Field Group',
     }).
-    when('/tax-pkg/tax/edit/:id', {
-        template: '<tax-form></tax-form>',
-        title: 'Edit Tax',
+    when('/attribute-pkg/field-group/edit/:id', {
+        template: '<field-group-form></field-group-form>',
+        title: 'Edit Field Group',
     });
 }]);

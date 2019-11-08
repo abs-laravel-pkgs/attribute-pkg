@@ -1,0 +1,162 @@
+<!-- Content Wrap -->
+<div class="content-wrap">
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="page-header-inner">
+            <div class="page-header-content-left">
+                <div class="page-header-content button-block">
+                    <a href="{{$ctrl.list_url}}" type="button" class="btn-back btn-img"><img class="img-responsive" src="./public/theme/img/content/previous.svg" alt="Back" /></a>
+                </div><!-- Page Header Content -->
+                <div class="page-header-content title-block">
+                    <h1 class="title"><b>Add {{$ctrl.field_category.name}} Field</b></h1>
+                    <p class="subtitle">{{$ctrl.field_category.name}} Field List / Form</p>
+                </div><!-- Page Header Content -->
+            </div><!-- Page Header Content Left -->
+        </div><!-- Page Header Inner -->
+    </div><!-- Page Header -->
+    <form id="form" enctype="multipart-formdata" autocomplete="off">
+        <input type="hidden" name="id" value="{{$ctrl.field.id}}">
+        <input type="hidden" name="category_id" value="{{$ctrl.category_id}}">
+        <!-- Page Main Content -->
+        <div class="page-main-content form-content type2">
+            <div class="page-tab-form pb-70">
+                <div class="tab-form-wrap">
+                    <div class="tab-form-header">
+                        <div class="tab-header">
+                            <!-- Filters -->
+                            <div class="isotope-filters animated" data-animation="fadeInLeft" data-animation-delay="300">
+                                <ul class="nav nav-pills cndn-tabs">
+                                    <li class="active"><a class="filter active" data-target="#field-information" data-toggle="tab" aria-expanded="true">{{$ctrl.field_category.name}} Field</a></li>
+                                </ul>
+                            </div><!-- Filters -->
+                        </div><!-- Tab Header -->
+                    </div><!-- Tab Form Header -->
+                    <div class="tab-form-body">
+                        <div class="tab-content">
+                            <!-- TAB PANEL -->
+                            <div class="tab-pane fade in active" id="field-information" data-animation="fadeInUp" data-animation-delay="300">
+                                <div class="tab-pane-wrap">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Field name <sup class="mandatory">*</sup></label>
+                                                <input ng-model="$ctrl.field.name" class="form-control" name="name" placeholder="Enter Category" autocomplete="off" />
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Field Type <sup class="mandatory">*</sup></label>
+                                                <md-select ng-model="$ctrl.field.type_id" placeholder="Select Field Type" md-on-close="clearSearchFieldType()" data-md-container-class="selectdemoSelectHeader">
+                                                    <md-select-header class="demo-select-header">
+                                                        <input ng-model="searchFieldType" type="search" placeholder="Search Field Type.." class="demo-header-searchbox md-text">
+                                                    </md-select-header>
+                                                    <md-optgroup>
+                                                        <md-option ng-value="field_type.id" ng-repeat="field_type in $ctrl.extras.field_type_list | filter:searchFieldType">{{field_type.name}}</md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                                <input type="hidden" id="type_id" class="required" name="type_id" value="{{$ctrl.field.type_id}}">
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>List Source <sup class="mandatory">*</sup></label>
+                                                <md-select ng-model="$ctrl.field.list_source_id" placeholder="Select List Source" md-on-close="clearSearchListSource()" data-md-container-class="selectdemoSelectHeader">
+                                                    <md-select-header class="demo-select-header">
+                                                        <input ng-model="searchListSource" type="search" placeholder="Search List Source.." class="demo-header-searchbox md-text">
+                                                    </md-select-header>
+                                                    <md-optgroup>
+                                                        <md-option ng-value="list_source.id" ng-repeat="list_source in $ctrl.extras.list_source_list | filter:searchListSource">{{list_source.name}}</md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                                <input type="hidden" id="list_source_id" class="required" name="list_source_id" value="{{$ctrl.field.list_source_id}}">
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Source Table <sup class="mandatory">*</sup></label>
+                                                <md-select ng-model="$ctrl.field.source_table_id" placeholder="Select Source Table" md-on-close="clearSearchSourceTable()" data-md-container-class="selectdemoSelectHeader">
+                                                    <md-select-header class="demo-select-header">
+                                                        <input ng-model="searchSourceTable" type="search" placeholder="Search Source Table.." class="demo-header-searchbox md-text">
+                                                    </md-select-header>
+                                                    <md-optgroup>
+                                                        <md-option ng-value="source_table.id" ng-repeat="source_table in $ctrl.extras.source_table_list | filter:searchSourceTable">{{source_table.name}}</md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                                <input type="hidden" id="source_table_id" class="required" name="source_table_id" value="{{$ctrl.field.source_table_id}}">
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Min Length <sup class="mandatory">*</sup></label>
+                                                <input ng-model="$ctrl.field.min_length" class="form-control" name="min_length" placeholder="Enter Min Length" autocomplete="off" />
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Max Length <sup class="mandatory">*</sup></label>
+                                                <input ng-model="$ctrl.field.max_length" class="form-control" name="max_length" placeholder="Enter Max Length" autocomplete="off" />
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Min Date <sup class="mandatory">*</sup></label>
+                                                <div class="input-group date btwn-img" data-provide="datepicker">
+                                                    <input type="text" class="form-control from_date" ng-model="$ctrl.field.min_date" name="min_date" id="min_date" placeholder="Select Min Date" aria-invalid="false" value="" />
+                                                    <div class="input-group-addon">
+                                                        <img class="img-responsive" src="public/theme/img/content/calender-gray-icon.svg" alt="Calendar Image" />
+                                                    </div>
+                                                </div><!-- Input Group -->
+                                            </div><!-- Field -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Max Date <sup class="mandatory">*</sup></label>
+                                                <div class="input-group date btwn-img" data-provide="datepicker">
+                                                    <input type="text" class="form-control from_date" ng-model="$ctrl.field.max_date" name="max_date" id="max_date" placeholder="Select Max Date" aria-invalid="false" value="" />
+                                                    <div class="input-group-addon">
+                                                        <img class="img-responsive" src="public/theme/img/content/calender-gray-icon.svg" alt="Calendar Image" />
+                                                    </div>
+                                                </div><!-- Input Group -->
+                                            </div><!-- Field -->
+                                        </div><!-- Column -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Unique <sup class="mandatory">*</sup></label>
+                                                <div class="tab-switch">
+                                                    <md-switch ng-model="$ctrl.field.status" aria-label="Switch 1" ng-true-value="'Inactive'" ng-false-value="'Active'" class="md-warn">
+                                                        {{ $ctrl.field.status }}
+                                                    </md-switch>
+                                                </div>
+                                            </div><!-- Form Group -->
+                                        </div><!-- Column -->
+                                        <div class="col-md-3">
+                                            <div class="input-text form-group">
+                                                <label>Status <sup class="mandatory">*</sup></label>
+                                                <div class="tab-switch">
+                                                    <md-switch name="status" ng-model="$ctrl.field.status" aria-label="Switch 1" ng-true-value="'Inactive'" ng-false-value="'Active'" class="md-warn">
+                                                        {{ $ctrl.field.status }}
+                                                    </md-switch>
+                                                </div>
+                                            </div><!-- Form Group -->
+                                        </div><!-- Column -->
+                                        <div class="tab-pane-footer">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <!-- <a class="btn btn-primary btn-nxt">Next</a> -->
+                                                    <a href="{{$ctrl.list_url}}" class="btn btn-white">Cancel</a>
+                                                    <button id="submit" type="submit" class="btn btn-primary ">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div><!-- Tab Footer -->
+                                    </div><!-- Row -->
+                                </div><!-- Tab Pane Wrap -->
+                            </div><!-- Tabe Pane -->
+                        </div><!-- Tab Content -->
+                    </div><!-- Tab Form Body -->
+                </div><!-- Tab Form Wrap -->
+            </div><!-- Page Form -->
+        </div><!-- Page Main Content -->
+    </form>
+</div><!-- Content Wrap -->
