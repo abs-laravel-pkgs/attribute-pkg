@@ -1,13 +1,13 @@
 app.config(['$routeProvider', function($routeProvider) {
 
     $routeProvider.
-    //TAX CODE
-    when('/tax-pkg/tax-code/list', {
-        template: '<tax-code-list></tax-code-list>',
-        title: 'Tax Codes',
+    //FIELDS
+    when('/attribute-pkg/field/list/:category_id', {
+        template: '<field-list></field-list>',
+        title: 'Fields',
     }).
-    when('/tax-pkg/tax-code/add', {
-        template: '<tax-code-form></tax-code-form>',
+    when('/attribute-pkg/field/add', {
+        template: '<field-form></field-form>',
         title: 'Add Tax Code',
     }).
     when('/tax-pkg/tax-code/edit/:id', {
@@ -15,10 +15,10 @@ app.config(['$routeProvider', function($routeProvider) {
         title: 'Edit Tax Code',
     }).
 
-    //TAX
-    when('/tax-pkg/tax/list', {
-        template: '<tax-list></tax-list>',
-        title: 'Taxes',
+    //FIELD GROUPS
+    when('/attribute-pkg/field-group/list/:category_id', {
+        template: '<field-group-list></field-group-list>',
+        title: 'Field Groups',
     }).
     when('/tax-pkg/tax/add', {
         template: '<tax-form></tax-form>',
