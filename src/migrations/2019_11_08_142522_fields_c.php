@@ -14,6 +14,7 @@ class FieldsC extends Migration {
 		Schema::create('fields', function (Blueprint $table) {
 			$table->increments('id');
 			$table->unsignedInteger('company_id');
+			$table->unsignedInteger('category_id')->nullable();
 			$table->string('name', 191);
 			$table->unsignedInteger('type_id');
 			$table->unsignedInteger('list_source_id')->nullable();
@@ -30,7 +31,9 @@ class FieldsC extends Migration {
 			$table->softDeletes();
 
 			$table->foreign('company_id')->references('id')->on('companies')->onDelete('CASCADE')->onUpdate('cascade');
-			$table->unique(["company_id", "name"]);
+			$table->foreign('category_id')->references('id')->on('configs')->onDelete('SET NULL')->onUpdate('cascade');
+			$table->unique(["company_id", "category_id", "name"]);
+
 			$table->foreign('type_id')->references('id')->on('field_types')->onDelete('CASCADE')->onUpdate('cascade');
 			$table->foreign('list_source_id')->references('id')->on('configs')->onDelete('CASCADE')->onUpdate('cascade');
 
