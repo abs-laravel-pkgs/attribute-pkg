@@ -20,11 +20,11 @@ app.config(['$routeProvider', function($routeProvider) {
         template: '<field-group-list></field-group-list>',
         title: 'Field Groups',
     }).
-    when('/attribute-pkg/field-group/add', {
+    when('/attribute-pkg/field-group/add/:category_id', {
         template: '<field-group-form></field-group-form>',
         title: 'Add Field Group',
     }).
-    when('/attribute-pkg/field-group/edit/:id', {
+    when('/attribute-pkg/field-group/edit/:category_id/:id', {
         template: '<field-group-form></field-group-form>',
         title: 'Edit Field Group',
     });

@@ -38,4 +38,12 @@ class Field extends Model {
 		return $this->attributes['max_date'] = empty($date) ? date('Y-m-d') : date('Y-m-d', strtotime($date));
 	}
 
+	public function fieldGroups() {
+		return $this->belongsToMany('Abs\AttributePkg\FieldGroup', 'field_group_field');
+	}
+
+	public function fieldType() {
+		return $this->belongsTo('Abs\AttributePkg\FieldType', 'type_id', 'id');
+	}
+
 }
