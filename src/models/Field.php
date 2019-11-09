@@ -24,4 +24,18 @@ class Field extends Model {
 		'deleted_by_id',
 	];
 
+	public function getMinDateAttribute($value) {
+		return empty($value) ? '' : date('d-m-Y', strtotime($value));
+	}
+	public function getMaxDateAttribute($value) {
+		return empty($value) ? '' : date('d-m-Y', strtotime($value));
+	}
+
+	public function setMinDateAttribute($date) {
+		return $this->attributes['min_date'] = empty($date) ? date('Y-m-d') : date('Y-m-d', strtotime($date));
+	}
+	public function setMaxDateAttribute($date) {
+		return $this->attributes['max_date'] = empty($date) ? date('Y-m-d') : date('Y-m-d', strtotime($date));
+	}
+
 }

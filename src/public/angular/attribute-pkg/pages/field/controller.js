@@ -7,7 +7,7 @@ app.component('fieldList', {
         $http.get(
             $filter_data_url
         ).then(function(res) {
-            console.log(res);
+            // console.log(res);
             if (!res.data.success) {
                 var errors = '';
                 for (var i in res.data.errors) {
@@ -50,8 +50,8 @@ app.component('fieldList', {
 
                     columns: [
                         { data: 'action', searchable: false, class: 'action' },
-                        { data: 'name', name: 'coa_types.name', searchable: true },
-                        { data: 'status', searchable: false },
+                        { data: 'field_name', name: 'fields.name', searchable: true },
+                        { data: 'short_name', name: 'field_types.short_name', searchable: true },
                     ],
                     rowCallback: function(row, data) {
                         $(row).addClass('highlight-row');
@@ -83,11 +83,10 @@ app.component('fieldList', {
                             new Noty({
                                 type: 'success',
                                 layout: 'topRight',
-                                text: 'Field Deleted Successfully',
+                                text: 'Field deleted successfully',
                             }).show();
 
                             $('#field-table').DataTable().ajax.reload();
-                            $scope.$apply();
                         }
                     });
                 }
@@ -129,6 +128,24 @@ app.component('fieldForm', {
             $rootScope.loading = false;
         });
 
+        $.validator.addMethod("minLength", function(value, element) {
+            var max_length = $('#max_length').val();
+            var min_length = value;
+            if (min_length > max_length) {
+                return false;
+            }
+            return true;
+        }, "Min length should be lesser than max length");
+
+        $.validator.addMethod("maxLength", function(value, element) {
+            var max_length = value;
+            var min_length = $('#min_length').val();
+            if (max_length < min_length) {
+                return false;
+            }
+            return true;
+        }, "Max length should be greater than min length");
+
         var form_id = '#form';
         var v = jQuery(form_id).validate({
             invalidHandler: function(event, validator) {
@@ -144,21 +161,8 @@ app.component('fieldForm', {
                     $noty.close();
                 }, 5000);
             },
-            /*errorPlacement: function(error, element) {
-                error.insertAfter(element)
-            },*/
             errorPlacement: function(error, element) {
-                // if (element.hasClass("joining")) {
-                //     error.appendTo($('.joining_error'));
-                // } else if (element.hasClass("employee_password_check")) {
-                //     error.appendTo($('.password_error'));
-                // }
-                // // else if (element.hasClass("company_code")) {
-                // //     error.appendTo($('.company_code_error'));
-                // // } 
-                // else {
                 error.insertAfter(element)
-                // }
             },
             ignore: '',
             rules: {
@@ -167,17 +171,19 @@ app.component('fieldForm', {
                     maxlength: 191,
                     minlength: 3,
                 },
-                'bank_name': {
-
-                    required: function(element) {
-                        if ($("#bank").is(':checked')) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    },
-                    maxlength: 100,
-                    minlength: 3,
+                'min_length': {
+                    required: true,
+                    minLength: true,
+                },
+                'max_length': {
+                    required: true,
+                    maxLength: true,
+                },
+                'min_date': {
+                    required: true,
+                },
+                'max_date': {
+                    required: true,
                 },
             },
             submitHandler: function(form) {
@@ -199,7 +205,17 @@ app.component('fieldForm', {
                             for (var i in res.errors) {
                                 errors += '<li>' + res.errors[i] + '</li>';
                             }
-                            custom_noty('error', errors);
+                            $noty = new Noty({
+                                type: 'success',
+                                layout: 'topRight',
+                                text: errors,
+                                animation: {
+                                    speed: 500 // unavailable - no need
+                                },
+                            }).show();
+                            setTimeout(function() {
+                                $noty.close();
+                            }, 5000);
                         } else {
                             $noty = new Noty({
                                 type: 'success',
@@ -218,7 +234,17 @@ app.component('fieldForm', {
                     })
                     .fail(function(xhr) {
                         $('#submit').button('reset');
-                        custom_noty('error', 'Something went wrong at server');
+                        $noty = new Noty({
+                            type: 'error',
+                            layout: 'topRight',
+                            text: 'Something went wrong at server',
+                            animation: {
+                                speed: 500 // unavailable - no need
+                            },
+                        }).show();
+                        setTimeout(function() {
+                            $noty.close();
+                        }, 5000);
                     });
             },
         });
