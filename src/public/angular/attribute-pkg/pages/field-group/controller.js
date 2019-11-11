@@ -35,6 +35,16 @@ app.component('fieldGroupList', {
                         },
                     },
                     stateSave: true,
+                    stateSaveCallback: function(settings, data) {
+                        localStorage.setItem('FGDataTables_' + settings.sInstance, JSON.stringify(data));
+                    },
+                    stateLoadCallback: function(settings) {
+                        var state_save_val = JSON.parse(localStorage.getItem('FGDataTables_' + settings.sInstance));
+                        if (state_save_val) {
+                            $('#search_field_group').val(state_save_val.search.search);
+                        }
+                        return JSON.parse(localStorage.getItem('FGDataTables_' + settings.sInstance));
+                    },
                     processing: true,
                     serverSide: true,
                     paging: true,
