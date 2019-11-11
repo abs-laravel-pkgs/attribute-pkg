@@ -20,7 +20,7 @@ class FieldGroup extends Model {
 	];
 
 	public function fields() {
-		return $this->belongsToMany('Abs\AttributePkg\Field', 'field_group_field');
+		return $this->belongsToMany('Abs\AttributePkg\Field', 'field_group_field', 'field_group_id', 'field_id')->withPivot(['is_required']);
 	}
 
 	public static function createFromObject($record_data) {
