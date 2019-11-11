@@ -57,7 +57,7 @@
                                                 <input type="hidden" id="type_id" class="required" name="type_id" value="{{$ctrl.field.type_id}}">
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1 || $ctrl.field.type_id == 2">
                                             <div class="input-text form-group">
                                                 <label>List Source <sup class="mandatory">*</sup></label>
                                                 <md-select ng-model="$ctrl.field.list_source_id" placeholder="Select List Source" md-on-close="clearSearchListSource()" data-md-container-class="selectdemoSelectHeader">
@@ -71,7 +71,7 @@
                                                 <input type="hidden" id="list_source_id" class="required" name="list_source_id" value="{{$ctrl.field.list_source_id}}">
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1 || $ctrl.field.type_id == 2">
                                             <div class="input-text form-group">
                                                 <label>Source Table <sup class="mandatory">*</sup></label>
                                                 <md-select ng-model="$ctrl.field.source_table_id" placeholder="Select Source Table" md-on-close="clearSearchSourceTable()" data-md-container-class="selectdemoSelectHeader">
@@ -85,19 +85,19 @@
                                                 <input type="hidden" id="source_table_id" class="required" name="source_table_id" value="{{$ctrl.field.source_table_id}}">
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 2">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 3 || $ctrl.field.type_id == 4">
                                             <div class="input-text form-group">
                                                 <label>Min Length <sup class="mandatory">*</sup></label>
                                                 <input ng-model="$ctrl.field.min_length" class="form-control" id="min_length" name="min_length" placeholder="Enter Min Length" autocomplete="off" />
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 2">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 3 || $ctrl.field.type_id == 4">
                                             <div class="input-text form-group">
                                                 <label>Max Length <sup class="mandatory">*</sup></label>
                                                 <input ng-model="$ctrl.field.max_length" class="form-control" id="max_length" name="max_length" placeholder="Enter Max Length" autocomplete="off" />
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 3">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 7 || $ctrl.field.type_id == 8">
                                             <div class="input-text form-group">
                                                 <label>Min Date <sup class="mandatory">*</sup></label>
                                                 <div class="input-group date btwn-img" data-provide="datepicker">
@@ -108,7 +108,7 @@
                                                 </div><!-- Input Group -->
                                             </div><!-- Field -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 3">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 7 || $ctrl.field.type_id == 8">
                                             <div class="input-text form-group">
                                                 <label>Max Date <sup class="mandatory">*</sup></label>
                                                 <div class="input-group date btwn-img" data-provide="datepicker">
