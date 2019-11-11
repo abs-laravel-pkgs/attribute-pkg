@@ -10,6 +10,10 @@ class FieldGroup extends Model {
 	use SoftDeletes;
 	protected $table = 'field_groups';
 	protected $fillable = [
+		'company_id',
+		'category_id',
+		'name',
+		'combine_fields',
 		'created_by_id',
 		'updated_by_id',
 		'deleted_by_id',
@@ -18,6 +22,7 @@ class FieldGroup extends Model {
 	public function fields() {
 		return $this->belongsToMany('Abs\AttributePkg\Field', 'field_group_field');
 	}
+
 	public static function createFromObject($record_data) {
 
 		$errors = [];

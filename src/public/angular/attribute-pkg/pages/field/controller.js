@@ -21,7 +21,7 @@ app.component('fieldList', {
 
             } else {
                 self.field_category = res.data.field_category;
-                self.form_url = form_url + '/' + $routeParams.category_id;
+                self.form_url = field_form_url + '/' + $routeParams.category_id;
 
                 var dataTable = $('#field-table').dataTable({
                     "dom": cndn_dom_structure,
@@ -120,31 +120,13 @@ app.component('fieldForm', {
                 $location.path('/attribute-pkg/field/list' + '/' + $routeParams.category_id)
                 $scope.$apply()
             }
-            self.list_url = list_url + '/' + $routeParams.category_id;
+            self.list_url = field_list_url + '/' + $routeParams.category_id;
             self.extras = response.data.extras;
             self.field_category = response.data.field_category;
             self.field = response.data.field;
             self.action = response.data.action;
             $rootScope.loading = false;
         });
-
-        $.validator.addMethod("minLength", function(value, element) {
-            var max_length = $('#max_length').val();
-            var min_length = value;
-            if (min_length > max_length) {
-                return false;
-            }
-            return true;
-        }, "Min length should be lesser than max length");
-
-        $.validator.addMethod("maxLength", function(value, element) {
-            var max_length = value;
-            var min_length = $('#min_length').val();
-            if (max_length < min_length) {
-                return false;
-            }
-            return true;
-        }, "Max length should be greater than min length");
 
         var form_id = '#form';
         var v = jQuery(form_id).validate({
@@ -173,11 +155,9 @@ app.component('fieldForm', {
                 },
                 'min_length': {
                     required: true,
-                    minLength: true,
                 },
                 'max_length': {
                     required: true,
-                    maxLength: true,
                 },
                 'min_date': {
                     required: true,
