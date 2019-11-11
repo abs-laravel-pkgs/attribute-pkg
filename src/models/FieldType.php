@@ -1,7 +1,6 @@
 <?php
 
 namespace Abs\AttributePkg;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -15,5 +14,30 @@ class FieldType extends Model {
 		'updated_by_id',
 		'deleted_by_id',
 	];
+
+	public static function createFromObject($record_data) {
+
+		$errors = [];
+
+		$record = self::firstOrNew([
+			'short_name' => $record_data->short_name,
+		]);
+		$record->name = $record_data->field_type_name;
+		$record->save();
+		return $record;
+	}
+
+	public static function createFromCollection($records) {
+		foreach ($records as $key => $record_data) {
+			try {
+				if (!$record_data->short_name) {
+					continue;
+				}
+				$record = self::createFromObject($record_data);
+			} catch (Exception $e) {
+				dd($e);
+			}
+		}
+	}
 
 }
