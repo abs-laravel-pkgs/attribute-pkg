@@ -54,7 +54,7 @@ class Field extends Model {
 			return;
 		}
 
-		$category = Config::where('name', $record_data->category)->where('config_type_id', 89)->first();
+		$category = Config::where('name', $record_data->category)->where('config_type_id', 83)->first();
 		if (!$category) {
 			$errors[] = 'Invalid category : ' . $record_data->category;
 		}
