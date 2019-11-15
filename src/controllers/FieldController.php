@@ -139,10 +139,12 @@ class FieldController extends Controller {
 				$field = Field::withTrashed()->find($request->id);
 				$field->updated_at = date("Y-m-d H:i:s");
 				$field->updated_by_id = Auth()->user()->id;
+				$message = 'Field updated successfully';
 			} else {
 				$field = new Field();
 				$field->created_at = date("Y-m-d H:i:s");
 				$field->created_by_id = Auth()->user()->id;
+				$message = 'Field added successfully';
 			}
 
 			if ($request->status == 'Inactive') {
@@ -157,7 +159,7 @@ class FieldController extends Controller {
 			$field->save();
 
 			DB::commit();
-			return response()->json(['success' => true, 'message' => 'Field saved successfully']);
+			return response()->json(['success' => true, 'message' => $message]);
 		} catch (Exception $e) {
 			DB::rollBack();
 			// dd($e->getMessage());

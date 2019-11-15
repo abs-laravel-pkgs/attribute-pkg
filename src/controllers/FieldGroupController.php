@@ -130,10 +130,12 @@ class FieldGroupController extends Controller {
 				$field_group = FieldGroup::withTrashed()->find($request->id);
 				$field_group->updated_at = date("Y-m-d H:i:s");
 				$field_group->updated_by_id = Auth()->user()->id;
+				$message = 'Field group updated successfully';
 			} else {
 				$field_group = new FieldGroup();
 				$field_group->created_at = date("Y-m-d H:i:s");
 				$field_group->created_by_id = Auth()->user()->id;
+				$message = 'Field group added successfully';
 			}
 
 			if ($request->status == 'Inactive') {
@@ -159,7 +161,7 @@ class FieldGroupController extends Controller {
 			}
 
 			DB::commit();
-			return response()->json(['success' => true, 'message' => 'Field group saved successfully']);
+			return response()->json(['success' => true, 'message' => $message]);
 		} catch (Exception $e) {
 			DB::rollBack();
 			// dd($e->getMessage());

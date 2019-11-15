@@ -8,8 +8,8 @@
                     <a href="{{$ctrl.list_url}}" type="button" class="btn-back btn-img"><img class="img-responsive" src="./public/theme/img/content/previous.svg" alt="Back" /></a>
                 </div><!-- Page Header Content -->
                 <div class="page-header-content title-block">
-                    <h1 class="title"><b>Add {{$ctrl.field_category.name}} Field</b></h1>
-                    <p class="subtitle">{{$ctrl.field_category.name}} Field List / Form</p>
+                    <h1 class="title"><b>{{$ctrl.action}} {{$ctrl.field_category.name}} Field</b></h1>
+                    <p class="subtitle">{{$ctrl.field_category.name}} Fields List / {{$ctrl.action}}</p>
                 </div><!-- Page Header Content -->
             </div><!-- Page Header Content Left -->
         </div><!-- Page Header Inner -->
@@ -119,8 +119,6 @@
                                                 </div><!-- Input Group -->
                                             </div><!-- Field -->
                                         </div><!-- Column -->
-                                    </div>
-                                    <div class="row">
                                         <div class="col-md-3">
                                             <div class="input-text form-group">
                                                 <label>Unique <sup class="mandatory">*</sup></label>
