@@ -22,6 +22,8 @@ app.component('fieldGroupList', {
             } else {
                 self.field_category = res.data.field_category;
                 self.form_url = field_group_form_url + '/' + $routeParams.category_id;
+                var table_scroll;
+                table_scroll = $('.page-main-content').height() - 37;
 
                 var dataTable = $('#field-group-table').dataTable({
                     "dom": cndn_dom_structure,
@@ -34,6 +36,8 @@ app.component('fieldGroupList', {
                             "previous": '<i class="icon ion-ios-arrow-back"></i>'
                         },
                     },
+                    scrollY: table_scroll + "px",
+                    scrollCollapse: true,
                     stateSave: true,
                     stateSaveCallback: function(settings, data) {
                         localStorage.setItem('FGDataTables_' + settings.sInstance, JSON.stringify(data));
