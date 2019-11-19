@@ -16,7 +16,7 @@ class FieldGroupController extends Controller {
 	}
 
 	public function getFieldGroupFilterdata($category_id = NULL) {
-		$field_category = Config::where('id', $category_id)->first();
+		$field_category = Config::where('id', $category_id)->where('config_type_id', 83)->first();
 		if (!$field_category) {
 			return response()->json(['success' => false, 'errors' => ['Field category not found']]);
 		}
@@ -62,7 +62,7 @@ class FieldGroupController extends Controller {
 	}
 
 	public function getFieldGroupFormdata($category_id, $id = NULL) {
-		$field_category = Config::where('id', $category_id)->first();
+		$field_category = Config::where('id', $category_id)->where('config_type_id', 83)->first();
 		if (!$field_category) {
 			return response()->json(['success' => false, 'error' => 'Field category not found']);
 		}

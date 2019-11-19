@@ -57,7 +57,7 @@
                                                 <input type="hidden" id="type_id" class="required" name="type_id" value="{{$ctrl.field.type_id}}">
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1 || $ctrl.field.type_id == 2">
+                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1 || $ctrl.field.type_id == 2 || $ctrl.field.type_id == 10">
                                             <div class="input-text form-group">
                                                 <label>List Source <sup class="mandatory">*</sup></label>
                                                 <md-select ng-model="$ctrl.field.list_source_id" placeholder="Select List Source" md-on-close="clearSearchListSource()" data-md-container-class="selectdemoSelectHeader">
@@ -71,7 +71,7 @@
                                                 <input type="hidden" id="list_source_id" class="required" name="list_source_id" value="{{$ctrl.field.list_source_id}}">
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
-                                        <div class="col-md-3" ng-if="$ctrl.field.type_id == 1 || $ctrl.field.type_id == 2">
+                                        <div class="col-md-3" ng-if="($ctrl.field.type_id == 1 && $ctrl.field.list_source_id == 1180) || ($ctrl.field.type_id == 2 && $ctrl.field.list_source_id == 1180) || ($ctrl.field.type_id == 10 && $ctrl.field.list_source_id == 1180)">
                                             <div class="input-text form-group">
                                                 <label>Source Table <sup class="mandatory">*</sup></label>
                                                 <md-select ng-model="$ctrl.field.source_table_id" placeholder="Select Source Table" md-on-close="clearSearchSourceTable()" data-md-container-class="selectdemoSelectHeader">
