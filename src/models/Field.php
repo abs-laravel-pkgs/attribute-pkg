@@ -1,8 +1,10 @@
 <?php
 
 namespace Abs\AttributePkg;
+use Abs\AttributePkg\FieldSourceTable;
 use App\Company;
 use App\Config;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -51,6 +53,41 @@ class Field extends Model {
 			}
 		}
 	}
+
+	public static function searchField($r) {
+		$field = self::find($r->field_id);
+		if ($field) {
+			$key = $r->key;
+			if ($field->list_source_id == 1180) {
+				$source_table = FieldSourceTable::find($field->source_table_id);
+				if (!$source_table) {
+					$list = [];
+				} else {
+					$nameSpace = '\\App\\';
+					$entity = $source_table->model;
+					$model = $nameSpace . $entity;
+					$list = $model::where('company_id', Auth::user()->company_id)
+						->select(
+							'id',
+							'name',
+							'code'
+						)
+						->where(function ($q) use ($key) {
+							$q->where('name', 'like', '%' . $key . '%')
+								->orWhere('code', 'like', '%' . $key . '%')
+							;
+						})
+						->get();
+				}
+			} else {
+				$list = [];
+			}
+		} else {
+			$list = [];
+		}
+		return response()->json($list);
+	}
+
 	public static function createFromObject($record_data, $company = null) {
 
 		$errors = [];

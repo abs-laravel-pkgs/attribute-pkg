@@ -23,6 +23,9 @@ app.component('fieldList', {
                 self.field_category = res.data.field_category;
                 self.form_url = field_form_url + '/' + $routeParams.category_id;
 
+                var table_scroll;
+                table_scroll = $('.page-main-content').height() - 37;
+
                 var dataTable = $('#field-table').dataTable({
                     "dom": cndn_dom_structure,
                     "language": {
@@ -34,6 +37,8 @@ app.component('fieldList', {
                             "previous": '<i class="icon ion-ios-arrow-back"></i>'
                         },
                     },
+                    scrollY: table_scroll + "px",
+                    scrollCollapse: true,
                     stateSave: true,
                     stateSaveCallback: function(settings, data) {
                         localStorage.setItem('FDataTables_' + settings.sInstance, JSON.stringify(data));

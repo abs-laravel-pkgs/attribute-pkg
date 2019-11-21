@@ -2,6 +2,7 @@
 
 namespace Abs\AttributePkg;
 use Abs\AttributePkg\Field;
+use Abs\AttributePkg\FieldSourceTable;
 use Abs\AttributePkg\FieldType;
 use App\Config;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class FieldController extends Controller {
 	}
 
 	public function getFieldFilterdata($category_id = NULL) {
-		$field_category = Config::where('id', $category_id)->first();
+		$field_category = Config::where('id', $category_id)->where('config_type_id', 83)->first();
 		if (!$field_category) {
 			return response()->json(['success' => false, 'errors' => ['Field category not found']]);
 		}
@@ -63,7 +64,7 @@ class FieldController extends Controller {
 	}
 
 	public function getFieldFormdata($category_id, $id = NULL) {
-		$field_category = Config::where('id', $category_id)->first();
+		$field_category = Config::where('id', $category_id)->where('config_type_id', 83)->first();
 		if (!$field_category) {
 			return response()->json(['success' => false, 'error' => 'Field category not found']);
 		}
@@ -85,8 +86,8 @@ class FieldController extends Controller {
 
 		$this->data['extras'] = [
 			'field_type_list' => collect(FieldType::select('short_name as name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Field Type']),
-			'list_source_list' => collect(FieldType::select('short_name as name', 'id')->get())->prepend(['id' => '', 'name' => 'Select List Source']),
-			'source_table_list' => collect(FieldType::select('short_name as name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Source Type']),
+			'list_source_list' => collect(Config::select('name', 'id')->where('config_type_id', 91)->get())->prepend(['id' => '', 'name' => 'Select List Source']),
+			'source_table_list' => collect(FieldSourceTable::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Source Type']),
 		];
 		$this->data['field_category'] = $field_category;
 		$this->data['field'] = $field;
