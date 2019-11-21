@@ -23,10 +23,25 @@ class FieldGroup extends Model {
 		return $this->belongsToMany('Abs\AttributePkg\Field', 'field_group_field', 'field_group_id', 'field_id')->withPivot(['is_required']);
 	}
 
-	public static function createFromObject($record_data) {
+	public static function createFromCollection($records, $company = null) {
+		foreach ($records as $key => $record_data) {
+			try {
+				if (!$record_data->company) {
+					continue;
+				}
+				$record = self::createFromObject($record_data, $company);
+			} catch (Exception $e) {
+				dd($e);
+			}
+		}
+	}
+
+	public static function createFromObject($record_data, $company = null) {
 
 		$errors = [];
-		$company = Company::where('code', $record_data->company)->first();
+		if (!$company) {
+			$company = Company::where('code', $record_data->company)->first();
+		}
 		if (!$company) {
 			dump('Invalid Company : ' . $record_data->company);
 			return;
@@ -59,23 +74,23 @@ class FieldGroup extends Model {
 		return $record;
 	}
 
-	public static function createFromCollection($records) {
+	public static function mapFields($records, $company = null) {
 		foreach ($records as $key => $record_data) {
 			try {
 				if (!$record_data->company) {
 					continue;
 				}
-				$record = self::createFromObject($record_data);
+				$record = self::mapField($record_data, $company);
 			} catch (Exception $e) {
 				dd($e);
 			}
 		}
 	}
-
-	public static function mapField($record_data) {
-
+	public static function mapField($record_data, $company = null) {
 		$errors = [];
-		$company = Company::where('code', $record_data->company)->first();
+		if (!$company) {
+			$company = Company::where('code', $record_data->company)->first();
+		}
 		if (!$company) {
 			dump('Invalid Company : ' . $record_data->company);
 			return;
@@ -109,18 +124,4 @@ class FieldGroup extends Model {
 
 		return $record;
 	}
-
-	public static function mapFields($records) {
-		foreach ($records as $key => $record_data) {
-			try {
-				if (!$record_data->company) {
-					continue;
-				}
-				$record = self::mapField($record_data);
-			} catch (Exception $e) {
-				dd($e);
-			}
-		}
-	}
-
 }
