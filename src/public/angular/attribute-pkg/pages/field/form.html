@@ -85,6 +85,20 @@
                                                 <input type="hidden" id="source_table_id" class="required" name="source_table_id" value="{{$ctrl.field.source_table_id}}">
                                             </div><!-- Feild -->
                                         </div><!-- Column -->
+                                        <div class="col-md-3" ng-if="($ctrl.field.type_id == 1 && $ctrl.field.list_source_id == 1181) || ($ctrl.field.type_id == 2 && $ctrl.field.list_source_id == 1181) || ($ctrl.field.type_id == 10 && $ctrl.field.list_source_id == 1181)">
+                                            <div class="input-text form-group">
+                                                <label>Config Source <sup class="mandatory">*</sup></label>
+                                                <md-select ng-model="$ctrl.field.source_table_id" placeholder="Select Config Source" md-on-close="clearSearchSourceTable()" data-md-container-class="selectdemoSelectHeader">
+                                                    <md-select-header class="demo-select-header">
+                                                        <input ng-model="searchSourceTable" type="search" placeholder="Search Source Table.." class="demo-header-searchbox md-text" ng-keydown="$event.stopPropagation()">
+                                                    </md-select-header>
+                                                    <md-optgroup>
+                                                        <md-option ng-value="config_source.id" ng-repeat="config_source in $ctrl.extras.config_source_list | filter:searchSourceTable">{{config_source.name}}</md-option>
+                                                    </md-optgroup>
+                                                </md-select>
+                                                <input type="hidden" id="source_table_id" class="required" name="source_table_id" value="{{$ctrl.field.source_table_id}}">
+                                            </div><!-- Feild -->
+                                        </div><!-- Column -->
                                         <div class="col-md-3" ng-if="$ctrl.field.type_id == 3 || $ctrl.field.type_id == 4">
                                             <div class="input-text form-group">
                                                 <label>Min Length <sup class="mandatory">*</sup></label>

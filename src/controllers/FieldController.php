@@ -2,6 +2,7 @@
 
 namespace Abs\AttributePkg;
 use Abs\AttributePkg\Field;
+use Abs\AttributePkg\FieldConfigSource;
 use Abs\AttributePkg\FieldSourceTable;
 use Abs\AttributePkg\FieldType;
 use App\Config;
@@ -85,8 +86,9 @@ class FieldController extends Controller {
 		}
 
 		$this->data['extras'] = [
-			'field_type_list' => collect(FieldType::select('short_name as name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Field Type']),
+			'field_type_list' => collect(FieldType::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Field Type']),
 			'list_source_list' => collect(Config::select('name', 'id')->where('config_type_id', 91)->get())->prepend(['id' => '', 'name' => 'Select List Source']),
+			'config_source_list' => collect(FieldConfigSource::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Config Source']),
 			'source_table_list' => collect(FieldSourceTable::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Source Type']),
 		];
 		$this->data['field_category'] = $field_category;
