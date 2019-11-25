@@ -169,16 +169,16 @@ app.component('fieldForm', {
                     minlength: 3,
                 },
                 'min_length': {
-                    required: true,
+                    // required: true,
                 },
                 'max_length': {
-                    required: true,
+                    // required: true,
                 },
                 'min_date': {
-                    required: true,
+                    // required: true,
                 },
                 'max_date': {
-                    required: true,
+                    // required: true,
                 },
             },
             submitHandler: function(form) {
