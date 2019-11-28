@@ -87,7 +87,7 @@ class FieldGroupController extends Controller {
 		}
 
 		$this->data['extras'] = [
-			'fields_list' => collect(Field::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Field']),
+			'fields_list' => collect(Field::select('name', 'id')->where('company_id', Auth::user()->company_id)->get())->prepend(['id' => '', 'name' => 'Select Field']),
 			'field_type_list' => Field::select('field_types.name', 'fields.id')->join('field_types', 'field_types.id', 'fields.type_id')->get()->keyBy('id'),
 		];
 		$this->data['field_category'] = $field_category;
