@@ -31,6 +31,6 @@ class EavDecimalC extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		//
+		Schema::dropIfExists('eav_decimal');
 	}
 }

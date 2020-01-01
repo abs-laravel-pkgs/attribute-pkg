@@ -38,17 +38,9 @@ class FieldTypesC extends Migration {
 			$table->increments('id');
 			$table->string('name', 191);
 			$table->string('short_name', 20);
-			$table->unsignedInteger('created_by_id')->nullable();
-			$table->unsignedInteger('updated_by_id')->nullable();
-			$table->unsignedInteger('deleted_by_id')->nullable();
-			$table->timestamps();
-			$table->softDeletes();
 
 			$table->unique(["name"]);
 			$table->unique(["short_name"]);
-			$table->foreign('created_by_id')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('cascade');
-			$table->foreign('updated_by_id')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('cascade');
-			$table->foreign('deleted_by_id')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('cascade');
 		});
 	}
 

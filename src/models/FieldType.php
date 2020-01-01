@@ -40,4 +40,13 @@ class FieldType extends Model {
 		}
 	}
 
+	public static function createMultipleFromArray($records) {
+		foreach ($records as $data) {
+			$record = self::firstOrCreate([
+				'name' => $data['name'],
+				'short_name' => $data['short_name'],
+			]);
+		}
+	}
+
 }
