@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FieldType extends Model {
 	protected $table = 'field_types';
+	public $timestamps = false;
 	protected $fillable = [
 		'name',
 		'short_name',
