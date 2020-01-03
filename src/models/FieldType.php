@@ -2,10 +2,8 @@
 
 namespace Abs\AttributePkg;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FieldType extends Model {
-	use SoftDeletes;
 	protected $table = 'field_types';
 	protected $fillable = [
 		'name',
