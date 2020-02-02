@@ -62,6 +62,9 @@ class FieldGroupController extends Controller {
 	}
 
 	public function getFieldGroupFormdata($category_id, $id = NULL) {
+		// $category_id = $r->category_id;
+		// $id = $r->id;
+
 		$field_category = Config::where('id', $category_id)->where('config_type_id', 83)->first();
 		if (!$field_category) {
 			return response()->json(['success' => false, 'error' => 'Field category not found']);

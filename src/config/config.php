@@ -1,4 +1,5 @@
 <?php
 return [
-	'DEV' => env('TESTIMONIAL_PKG_DEV', false),
+	'DEV' => env('ATTRIBUTE_PKG_DEV', false),
+	'config_type_id' => 9,
 ];
