@@ -165,11 +165,19 @@ class FieldController extends Controller {
 			$field->save();
 
 			DB::commit();
-			return response()->json(['success' => true, 'message' => $message]);
+			return response()->json([
+				'success' => true,
+				'message' => $message,
+			]);
 		} catch (Exception $e) {
 			DB::rollBack();
 			// dd($e->getMessage());
-			return response()->json(['success' => false, 'errors' => ['Exception Error' => $e->getMessage()]]);
+			return response()->json([
+				'success' => false,
+				'errors' => [
+					$e->getMessage(),
+				],
+			]);
 		}
 	}
 
@@ -180,6 +188,25 @@ class FieldController extends Controller {
 		}
 		Field::withTrashed()->where('id', $id)->forceDelete();
 		return response()->json(['success' => true]);
+	}
+
+	public function getFields(Request $r) {
+		try {
+
+			$category_id = $r->category_id;
+			$fields = Field::where('category_id', $category_id)->get();
+			return response()->json([
+				'success' => true,
+				'fields' => $fields,
+			]);
+		} catch (Exception $e) {
+			return response()->json([
+				'success' => false,
+				'errors' => [
+					$e->getMessage(),
+				],
+			]);
+		}
 	}
 
 }

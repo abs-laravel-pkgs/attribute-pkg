@@ -16,4 +16,6 @@ Route::group(['namespace' => 'Abs\AttributePkg', 'middleware' => ['web', 'auth']
 	Route::get('/field/delete/{id?}', 'FieldController@delete')->name('deleteField');
 	Route::get('/field/get-form-data/', 'FieldController@getFieldFormdata')->name('getFieldFormData');
 	Route::post('/field/save', 'FieldController@saveField')->name('saveField');
+
+	Route::get('/fields/get', 'FieldController@getFields')->name('getFields');
 });

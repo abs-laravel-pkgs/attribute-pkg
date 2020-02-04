@@ -4,7 +4,7 @@ namespace Abs\AttributePkg\Database\Seeds;
 use App\Permission;
 use Illuminate\Database\Seeder;
 
-class AttributePermissionSeeder extends Seeder {
+class AttributePkgPermissionSeeder extends Seeder {
 	/**
 	 * Run the database seeds.
 	 *
