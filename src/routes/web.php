@@ -17,5 +17,8 @@ Route::group(['namespace' => 'Abs\AttributePkg', 'middleware' => ['web', 'auth']
 	Route::get('/field/get-form-data/', 'FieldController@getFieldFormdata')->name('getFieldFormData');
 	Route::post('/field/save', 'FieldController@saveField')->name('saveField');
 
+});
+
+Route::group(['namespace' => 'Abs\AttributePkg', 'middleware' => ['web'], 'prefix' => 'attribute-pkg'], function () {
 	Route::get('/fields/get', 'FieldController@getFields')->name('getFields');
 });

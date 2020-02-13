@@ -5,7 +5,9 @@ use Abs\AttributePkg\Field;
 use Abs\AttributePkg\FieldConfigSource;
 use Abs\AttributePkg\FieldSourceTable;
 use Abs\AttributePkg\FieldType;
+use Abs\Basic\EntityType;
 use App\Config;
+use App\Entity;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
@@ -90,7 +92,8 @@ class FieldController extends Controller {
 
 		$this->data['extras'] = [
 			'field_type_list' => collect(FieldType::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Field Type']),
-			'list_source_list' => collect(Config::select('name', 'id')->where('config_type_id', 91)->get())->prepend(['id' => '', 'name' => 'Select List Source']),
+			'list_source_list' => collect(Config::select('name', 'id')->where('config_type_id', config('attribute-pkg.list_source_config_type_id'))->get())->prepend(['id' => '', 'name' => 'Select List Source']),
+			'entity_type_list' => collect(EntityType::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Entity Type']),
 			'config_source_list' => collect(FieldConfigSource::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Config Source']),
 			'source_table_list' => collect(FieldSourceTable::select('name', 'id')->get())->prepend(['id' => '', 'name' => 'Select Source Type']),
 		];
@@ -192,9 +195,15 @@ class FieldController extends Controller {
 
 	public function getFields(Request $r) {
 		try {
-
 			$category_id = $r->category_id;
 			$fields = Field::where('category_id', $category_id)->get();
+			foreach ($fields as $field) {
+				if (in_array($field->type_id, [11])) {
+					if ($field->list_source_id == config('attribute-pkg.entity_source')) {
+						$field->source_list = Entity::where('entity_type_id', $field->source_table_id)->pluck('name', 'id');
+					}
+				}
+			}
 			return response()->json([
 				'success' => true,
 				'fields' => $fields,
