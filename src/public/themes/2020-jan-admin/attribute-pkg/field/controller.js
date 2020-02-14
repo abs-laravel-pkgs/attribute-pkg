@@ -215,19 +215,13 @@ app.component('fieldForm', {
                         contentType: false,
                     })
                     .done(function(res) {
-                        if (res.success == true) {
+                        if (res.success) {
                             custom_noty('success', res.message)
                             $location.path('/attribute-pkg/field/list/' + $routeParams.category_id);
                             $scope.$apply();
                         } else {
-                            if (!res.success == true) {
-                                $('#submit').button('reset');
-                                showErrorNoty(res)
-                            } else {
-                                $('#submit').button('reset');
-                                $location.path('/attribute-pkg/field/list');
-                                $scope.$apply();
-                            }
+                            $('#submit').button('reset');
+                            showErrorNoty(res)
                         }
                     })
                     .fail(function(xhr) {
