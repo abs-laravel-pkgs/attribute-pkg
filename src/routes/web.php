@@ -1,9 +1,7 @@
 <?php
 
 Route::group(['namespace' => 'Abs\AttributePkg', 'middleware' => ['web', 'auth'], 'prefix' => 'attribute-pkg'], function () {
-	/*Route::get('/field-groups/get-filter-data/{category_id?}', 'FieldGroupController@getFieldGroupFilterdata')->name('getFieldGroupFilterdata');*/
 	Route::get('/field-groups/get-filter-data', 'FieldGroupController@getFieldGroupFilterdata')->name('getFieldGroupFilterdata');
-
 	Route::get('/field-groups/get-list', 'FieldGroupController@getFieldGroupList')->name('getFieldGroupList');
 	Route::get('/field-group/delete', 'FieldGroupController@deleteFieldGroup')->name('deleteFieldGroup');
 	Route::get('/field-group/get-form-data/', 'FieldGroupController@getFieldGroupFormdata')->name('getFieldGroupFormdata');
