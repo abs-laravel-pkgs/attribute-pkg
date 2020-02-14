@@ -1,0 +1,171 @@
+<!-- Content Wrap -->
+<div class="content-wrap">
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header-content">
+                        <div class="page-header-inner page-title display-inline-block">
+                            <div class="previous-page">
+                                <a href="#!/attribute-pkg/field-group/list/{{$ctrl.category_id}}">
+                                    <img src="./public/themes/{{$ctrl.theme}}/img/content/previous.svg" class="img-responsive">
+                                </a>
+                            </div>
+                        </div><!-- Page Header Inner -->
+                        <div class="page-header-inner page-title display-inline-block">
+                            <h1 class="title">{{$ctrl.action}} {{$ctrl.field_category.name}} Field Group</h1>
+                            <p class="subtitle">
+                                <a href="#!/attribute-pkg/field-group/list/{{$ctrl.category_id}}">
+                                    Field Groups List
+                                </a> /
+                                {{$ctrl.action}}
+                            </p>
+                        </div><!-- Page Header Inner -->
+                    </div><!-- Page Header Content -->
+                </div><!-- Col Main -->
+            </div><!-- Row -->
+        </div><!-- Container -->
+    </div><!-- Page Header -->
+    <!-- Page Main Content -->
+    <div class="page-main-content">
+        <form id="form" autocomplete="off">
+            <input type="hidden" name="id" value="{{$ctrl.field_group.id}}">
+            <input type="hidden" name="category_id" value="{{$ctrl.category_id}}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="page-tab-form pb-80">
+                            <div class="tab-form-wrap">
+                                <div class="tab-form-header">
+                                    <div class="tab-header">
+                                        <div class="isotope-filters animated" data-animation="fadeInLeft" data-animation-delay="300">
+                                            <ul class="nav nav-pills editDetails-tabs">
+                                                <li class="active">
+                                                    <a data-target="#field-group-info" role="tab" data-toggle="tab" aria-expanded="true"> Field Group
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a data-target="#fields-info" role="tab" data-toggle="tab" aria-expanded="true">Fields</a>
+                                                </li>
+                                            </ul>
+                                        </div><!-- Filters -->
+                                    </div><!-- Tab Header -->
+                                </div><!-- Tab Form Header -->
+                                <div class="tab-form-body">
+                                    <div class="tab-content">
+                                        <!-- TAB PANEL -->
+                                        <div class="tab-pane fade in active" id="field-group-info" data-animation="fadeInUp" data-animation-delay="300">
+                                            <div class="tab-pane-wrap">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>
+                                                                Field Group Name
+                                                                <span class="mandatory">
+                                                                    *
+                                                                </span>
+                                                            </label>
+                                                            <input ng-model="$ctrl.field_group.name" name="name" class="form-control" placeholder="Enter Category" autocomplete="off" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label>Active Status<span class="mandatory">*</span></label>
+                                                            <md-switch ng-model="$ctrl.field_group.status" aria-label="Switch 2" ng-true-value="'Inactive'" ng-false-value="'Active'" class="md-warn">
+                                                                {{ $ctrl.field_group.status }}
+                                                            </md-switch>
+                                                            <input type="hidden" name="status" value="{{$ctrl.field_group.status}}">
+                                                        </div><!-- Field -->
+                                                    </div><!-- Column -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="tab-pane-footer text-right">
+                                                            <a class="btn btn-grey btn-nxt">Next</a>
+                                                            <button type="submit" id="submit" class="btn btn-secondary">
+                                                                Submit
+                                                            </button>
+                                                        </div><!-- Tab Footer -->
+                                                    </div>
+                                                </div><!-- Row -->
+                                            </div><!-- Tab Pane Wrap -->
+                                        </div><!-- Tab Pane -->
+                                        <div class="tab-pane fade" id="fields-info" data-animation="fadeInUp" data-animation-delay="300">
+                                            <div class="form-page">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h6 class="tab-pane-title">Field Group Name : <span class="color-primary-light">{{$ctrl.field_group.name}}</span></h6>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-form">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Action</th>
+                                                                        <th>Fields</th>
+                                                                        <th>Field Type</th>
+                                                                        <th>Required</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="(index, field) in $ctrl.field_group.fields">
+                                                                        <td>
+                                                                            <a href="javascript:;" ng-click="removeField(index)"><img src="./public/themes/{{$ctrl.theme}}/img/content/modal/close-circle-active.svg" class="img-fluid" alt="Delete"></a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <md-select ng-model="field.id" placeholder="Select Field" md-on-close="clearSearchListSource()" data-md-container-class="selectdemoSelectHeader">
+                                                                                <md-select-header class="demo-select-header">
+                                                                                    <input ng-model="searchField" type="search" placeholder="Search Field.." class="demo-header-searchbox md-text" ng-keydown="$event.stopPropagation()">
+                                                                                </md-select-header>
+                                                                                <md-optgroup>
+                                                                                    <md-option ng-value="field_list.id" ng-repeat="field_list in $ctrl.extras.fields_list | filter:searchField">{{field_list.name}}</md-option>
+                                                                                </md-optgroup>
+                                                                            </md-select>
+                                                                            <input type="hidden" name="fields[{{index}}][id]" id="fields[{{index}}][id]" class="required" value="{{field.id}}">
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" value="{{$ctrl.extras.field_type_list[field.id].name}}" disabled />
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <div class="md-switch-two">
+                                                                                    <md-switch ng-model="field.is_required_status" aria-label="Switch {{index}}" ng-true-value="'No'" ng-false-value="'Yes'" class="md-warn">
+                                                                                        {{ field.is_required_status }}
+                                                                                    </md-switch>
+                                                                                    <input type="hidden" name="fields[{{index}}][is_required]" value="{{field.is_required_status}}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <td colspan="4">
+                                                                            <button type="button" class="btn btn-primary-light btn-square" ng-click="addNewFields()">+ Add Field</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div><!-- Table Responsive -->
+                                                    </div><!-- Column -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="tab-pane-footer text-right">
+                                                            <a class="btn btn-grey btn-prev">Previous</a>
+                                                            <button type="submit" class="btn btn-secondary submit">Submit</button>
+                                                        </div><!-- Tab Footer -->
+                                                    </div><!-- Column -->
+                                                </div><!-- Row -->
+                                            </div><!-- Tab Pane Wrap -->
+                                        </div><!-- Tabe Pane -->
+                                    </div><!-- Tab Content -->
+                                </div><!-- Tab Form Body -->
+                            </div><!-- Tab Form Wrap -->
+                        </div><!-- Page Tab Form -->
+                    </div><!-- Column -->
+                </div><!-- Row -->
+            </div><!-- Container -->
+        </form>
+    </div><!-- Page Main Content -->
+</div><!-- Content Wrap -->

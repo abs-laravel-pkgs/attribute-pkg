@@ -12,14 +12,23 @@ use Yajra\Datatables\Datatables;
 
 class FieldGroupController extends Controller {
 
+	private $company_id;
 	public function __construct() {
+		$this->data['theme'] = config('custom.admin_theme');
+		$this->company_id = config('custom.company_id');
 	}
 
-	public function getFieldGroupFilterdata($category_id = NULL) {
-		$field_category = Config::where('id', $category_id)->where('config_type_id', config('attribute-pkg.config_type_id'))->first();
-		if (!$field_category) {
+	public function getFieldGroupFilterdata(Request $request) {
+		//dd($request->category_id);
+		$category_id = $request->category_id;
+		if (!is_null($category_id)) {
+			$field_category = Config::where('id', $category_id)->where('config_type_id', config('attribute-pkg.config_type_id'))->first();
+		} else {
 			return response()->json(['success' => false, 'errors' => ['Field category not found']]);
 		}
+		/*if (!$field_category) {
+			return response()->json(['success' => false, 'errors' => ['Field category not found']]);
+		}*/
 
 		return response()->json(['success' => true, 'field_category' => $field_category]);
 	}
@@ -49,21 +58,28 @@ class FieldGroupController extends Controller {
 			})
 			->addColumn('action', function ($field_group_list) {
 
-				$img_edit = asset('public/theme/img/table/cndn/edit.svg');
-				$img_delete = asset('public/theme/img/table/cndn/delete.svg');
+				/*$img_edit = asset('public/theme/img/table/cndn/edit.svg');
+									$img_delete = asset('public/theme/img/table/cndn/delete.svg');
 
-				return '<a href="#!/attribute-pkg/field-group/edit/' . $field_group_list->category_id . '/' . $field_group_list->id . '" class="">
-                        <img class="img-responsive" src="' . $img_edit . '" alt="Edit" />
-                    	</a>
-						<a href="javascript:;"  data-toggle="modal" data-target="#field-group-delete-modal" onclick="angular.element(this).scope().calldeleteConfirm(' . $field_group_list->id . ')" title="Delete"><img src="' . $img_delete . '" alt="Delete" class="img-responsive delete"></a>';
+									return '<a href="#!/attribute-pkg/field-group/edit/' . $field_group_list->category_id . '/' . $field_group_list->id . '" class="">
+					                        <img class="img-responsive" src="' . $img_edit . '" alt="Edit" />
+					                    	</a>
+				*/
+				$img1 = asset('public/themes/' . $this->data['theme'] . '/img/content/table/edit-yellow.svg');
+				$img1_active = asset('public/themes/' . $this->data['theme'] . '/img/content/table/edit-yellow-active.svg');
+				$img_delete = asset('public/themes/' . $this->data['theme'] . '/img/content/table/delete-default.svg');
+				$img_delete_active = asset('public/themes/' . $this->data['theme'] . '/img/content/table/delete-active.svg');
+				return '<a href="#!/attribute-pkg/field-group/edit/' . $field_group_list->category_id . '/' . $field_group_list->id . '" class=""><img src="' . $img1 . '" alt="Edit" class="img-responsive" onmouseover=this.src="' . $img1_active . '" onmouseout=this.src="' . $img1 . '"></a>
+						<a href="javascript:;"  data-toggle="modal" data-target="#field-group-delete-modal" onclick="angular.element(this).scope().calldeleteConfirm(' . $field_group_list->id . ')" title="Delete"><img src="' . $img_delete . '" alt="Delete" class="img-responsive delete" onmouseover=this.src="' . $img_delete_active . '" onmouseout=this.src="' . $img_delete . '"></a>';
+
 			})
 			->rawColumns(['field_group_name', 'action'])
 			->make(true);
 	}
 
-	public function getFieldGroupFormdata($category_id, $id = NULL) {
-		// $category_id = $r->category_id;
-		// $id = $r->id;
+	public function getFieldGroupFormdata(Request $r) {
+		$category_id = $r->category_id;
+		$id = $r->id;
 
 		$field_category = Config::where('id', $category_id)->where('config_type_id', config('attribute-pkg.config_type_id'))->first();
 		if (!$field_category) {
@@ -96,6 +112,7 @@ class FieldGroupController extends Controller {
 		$this->data['field_category'] = $field_category;
 		$this->data['field_group'] = $field_group;
 		$this->data['success'] = true;
+		$this->data['theme'];
 		return response()->json($this->data);
 	}
 
@@ -172,13 +189,20 @@ class FieldGroupController extends Controller {
 		}
 	}
 
-	public function delete($id) {
-		$field_group = FieldGroup::withTrashed()->where('id', $id)->first();
-		if (!$field_group) {
-			return response()->json(['success' => false, 'errors' => ['Field group not found']]);
+	public function deleteFieldGroup(Request $request) {
+		DB::beginTransaction();
+		try {
+			$field_group = FieldGroup::withTrashed()->where('id', $request->id)->first();
+			if (!$field_group) {
+				return response()->json(['success' => false, 'errors' => ['Field group not found']]);
+			}
+			FieldGroup::withTrashed()->where('id', $request->id)->forceDelete();
+			DB::commit();
+			return response()->json(['success' => true, 'message' => 'Field group deleted successfully']);
+		} catch (Exception $e) {
+			DB::rollBack();
+			return response()->json(['success' => false, 'errors' => ['Exception Error' => $e->getMessage()]]);
 		}
-		FieldGroup::withTrashed()->where('id', $id)->forceDelete();
-		return response()->json(['success' => true]);
 	}
 
 }
