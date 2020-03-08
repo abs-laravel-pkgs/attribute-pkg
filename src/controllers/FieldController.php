@@ -5,7 +5,7 @@ use Abs\AttributePkg\Field;
 use Abs\AttributePkg\FieldConfigSource;
 use Abs\AttributePkg\FieldSourceTable;
 use Abs\AttributePkg\FieldType;
-use Abs\Basic\EntityType;
+use Abs\BasicPkg\EntityType;
 use App\Config;
 use App\Entity;
 use App\Http\Controllers\Controller;
