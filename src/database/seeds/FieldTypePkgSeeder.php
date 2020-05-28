@@ -56,6 +56,10 @@ class FieldTypePkgSeeder extends Seeder {
 				'name' => 'Check Box with Description',
 				'short_name' => 'CBWD',
 			],
+			[
+				'name' => 'Slider',
+				'short_name' => 'SLD',
+			],
 		];
 
 		FieldType::createMultipleFromArray($records);
