@@ -66,11 +66,13 @@ class FieldController extends Controller {
 			->make(true);
 	}
 
-	public function getFieldFormdata(Request $r) {
-		$category_id = $r->category_id;
-		$id = $r->id;
+	public function getFieldFormdata($category_id, $id = NULL) {
+		// $category_id = $r->category_id;
+		// $id = $r->id;
 
-		$field_category = Config::where('id', $category_id)->where('config_type_id', config('attribute-pkg.config_type_id'))->first();
+		// $field_category = Config::where('id', $category_id)->where('config_type_id', config('attribute-pkg.config_type_id'))->first();
+		$field_category = Config::where('id', $category_id)->first();
+
 		if (!$field_category) {
 			return response()->json(['success' => false, 'error' => 'Field category not found']);
 		}
