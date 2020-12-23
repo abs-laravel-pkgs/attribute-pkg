@@ -1,6 +1,6 @@
 <?php
 
-namespace Abs\AttributePkg;
+namespace Abs\AttributePkg\Models;
 use App\Company;
 use App\Config;
 use Illuminate\Database\Eloquent\Model;

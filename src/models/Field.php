@@ -1,11 +1,12 @@
 <?php
 
-namespace Abs\AttributePkg;
+namespace Abs\AttributePkg\Models;
 use Abs\AttributePkg\FieldSourceTable;
 use App\Company;
 use App\Config;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Field extends Model {
@@ -30,6 +31,7 @@ class Field extends Model {
 	public function getMinDateAttribute($value) {
 		return empty($value) ? '' : date('d-m-Y', strtotime($value));
 	}
+
 	public function getMaxDateAttribute($value) {
 		return empty($value) ? '' : date('d-m-Y', strtotime($value));
 	}
@@ -37,8 +39,13 @@ class Field extends Model {
 	public function setMinDateAttribute($date) {
 		return $this->attributes['min_date'] = empty($date) ? date('Y-m-d') : date('Y-m-d', strtotime($date));
 	}
+
 	public function setMaxDateAttribute($date) {
 		return $this->attributes['max_date'] = empty($date) ? date('Y-m-d') : date('Y-m-d', strtotime($date));
+	}
+
+	public function groups(): BelongsToMany {
+		return $this->belongsToMany(FieldGroup::class, 'field_group_field');
 	}
 
 	public static function createFromCollection($records, $company = null) {

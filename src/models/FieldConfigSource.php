@@ -1,6 +1,6 @@
 <?php
 
-namespace Abs\AttributePkg;
+namespace Abs\AttributePkg\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

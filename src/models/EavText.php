@@ -1,6 +1,6 @@
 <?php
 
-namespace Abs\EavPkg;
+namespace Abs\AttributePkg\Models;
 
 use App\Company;
 use App\Config;
