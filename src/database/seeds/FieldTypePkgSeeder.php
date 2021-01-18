@@ -1,7 +1,7 @@
 <?php
 namespace Abs\AttributePkg\Database\Seeds;
 
-use Abs\AttributePkg\FieldType;
+use Abs\AttributePkg\Models\FieldType;
 use Illuminate\Database\Seeder;
 
 class FieldTypePkgSeeder extends Seeder {
