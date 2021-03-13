@@ -1,11 +1,11 @@
 <?php
 
 namespace Abs\AttributePkg;
-use Abs\AttributePkg\Field;
-use Abs\AttributePkg\FieldConfigSource;
-use Abs\AttributePkg\FieldSourceTable;
-use Abs\AttributePkg\FieldType;
-use Abs\BasicPkg\EntityType;
+use Abs\AttributePkg\Models\Field;
+use Abs\AttributePkg\Models\FieldConfigSource;
+use Abs\AttributePkg\Models\FieldSourceTable;
+use Abs\AttributePkg\Models\FieldType;
+use Abs\BasicPkg\Models\EntityType;
 use App\Config;
 use App\Entity;
 use App\Http\Controllers\Controller;
