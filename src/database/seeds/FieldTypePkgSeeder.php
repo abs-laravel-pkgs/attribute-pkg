@@ -60,6 +60,10 @@ class FieldTypePkgSeeder extends Seeder {
 				'name' => 'Slider',
 				'short_name' => 'SLD',
 			],
+			[
+				'name' => '5 Star Rating',
+				'short_name' => '5SR',
+			],
 		];
 
 		FieldType::createMultipleFromArray($records);
